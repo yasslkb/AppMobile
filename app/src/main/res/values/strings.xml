@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">projet_mobile</string>
+    <string name="email_hint">email</string>
+    <string name="welcome_text">welcome</string>
+    <string name="pass_hint">password</string>
+    <string name="login_text">login</string>
+</resources>
