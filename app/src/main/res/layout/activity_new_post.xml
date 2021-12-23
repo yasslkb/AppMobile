@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
     tools:context=".NewPostActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,15 +19,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
 
+
     <ImageView
         android:id="@+id/new_post_image"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_width="419dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toTopOf="@+id/new_post_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_toolbar"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <EditText
         android:id="@+id/new_post_desc"
@@ -38,9 +40,12 @@
         android:inputType="textImeMultiLine"
         android:maxLength="100"
         android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/post_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_image" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_image"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/post_btn"
@@ -52,9 +57,12 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_desc"
+        app:layout_constraintVertical_bias="0.888" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

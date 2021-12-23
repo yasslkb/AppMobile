@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <item
         android:id="@+id/action_search_btn"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="search"
-        app:showAsAction="always" />
+        android:title="@string/search"
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/action_setting_btn"
-        android:title="account setting" />
+        android:checkable="false"
+        android:title="@string/account_setting"
+        app:showAsAction="collapseActionView" />
     <item
         android:id="@+id/action_logout_btn"
-        android:title="logout" />
+        android:title="@string/logout"
+        app:showAsAction="collapseActionView" />
 </menu>

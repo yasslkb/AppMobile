@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,7 +50,7 @@ public class SetupActivity extends AppCompatActivity {
     private String user_id;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-private boolean ischanged = false;
+    private boolean ischanged = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ private boolean ischanged = false;
         setupname = findViewById(R.id.setup_name);
         mAuth = FirebaseAuth.getInstance();
         storageref = FirebaseStorage.getInstance().getReference();
+        setupimage = findViewById(R.id.setup_image);
 user_id = mAuth.getCurrentUser().getUid();
 setupbtn.setEnabled(false);
 firestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -89,7 +92,7 @@ if(task.isSuccessful()){
 
     }
 });
-        setupimage = findViewById(R.id.setup_image);
+
         setupimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,22 +121,76 @@ if(task.isSuccessful()){
             @Override
             public void onClick(View view) {
                 if (ischanged) {
+                    System.out.println("line is changed");
+
+
                     String user_name = setupname.getText().toString();
 
                     if (!TextUtils.isEmpty(user_name) && mainimage != null) {
-
+        System.out.println("line 124");
                         user_id = mAuth.getCurrentUser().getUid();
                         StorageReference image_path = storageref.child("profile_images")
                                 .child(user_id + ".jpg");
 
-                        image_path.putFile(mainimage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+
+
+
+
+
+
+
+
+
+                        String randomeName = UUID.randomUUID().toString();
+                        StorageReference filePath = storageref.child("profile_images").child(randomeName + ".jpg");
+                        filePath.putFile(mainimage)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        final Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                                        firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                final String downloadUri = uri.toString();
+                                                Map<String, String> usermap = new HashMap<>();
+                                                usermap.put("name", user_name);
+                                                usermap.put("image", downloadUri);
+                                                firestore.collection("Users").document(user_id).set(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(SetupActivity.this, "succes", Toast.LENGTH_SHORT).show();
+                                                            Intent mainintent = new Intent(SetupActivity.this, MainActivity.class);
+                                                            startActivity(mainintent);
+                                                            finish();
+                                                        } else {
+                                                            //ajouter le toast aprés
+                                                            Toast.makeText(SetupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+
+
+                 /*      image_path.putFile(mainimage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                                                                 @Override
                                                                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                                                                     if (task.isSuccessful()) {
-                                                                                        Uri download_uri = image_path.getDownloadUrl().getResult();
+                                                                                       // System.out.println("line 132 ");
+                                                                                    Uri download_uri = image_path.getDownloadUrl().getResult();
+
+                                                                                     //   System.out.println(download_uri.toString());
+
+
+
                                                                                         Map<String, String> usermap = new HashMap<>();
                                                                                         usermap.put("name", user_name);
-                                                                                        usermap.put("image", download_uri.toString());
+                                                                                        usermap.put("image", UUID.randomUUID().toString());
                                                                                         firestore.collection("Users").document(user_id).set(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                             @Override
                                                                                             public void onComplete(@NonNull Task<Void> task) {
@@ -145,6 +202,7 @@ if(task.isSuccessful()){
                                                                                                     finish();
                                                                                                 } else {
                                                                                                     //ajouter le toast aprés
+                                                                                                    Toast.makeText(SetupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                                                                                 }
 
                                                                                             }
@@ -157,6 +215,8 @@ if(task.isSuccessful()){
                                                                                 }
                                                                             }
                         );
+
+                       */
 
 
                     }

@@ -3,6 +3,8 @@ package com.example.projet_mobile;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.content.Intent;
@@ -10,11 +12,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton addPostBtn;
     private FirebaseFirestore firebaseFirestore;
     private String current_user_id;
-
+    private BottomNavigationView mainBottomNav;
+    private HomeFragment homeFragment;
+    private NotificationFragment notificationFragment;
+    private AccountFragment accountFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +43,54 @@ public class MainActivity extends AppCompatActivity {
         mAuth =FirebaseAuth.getInstance();
         setSupportActionBar(maintoolbar);
         getSupportActionBar().setTitle("blog");
-        addPostBtn = findViewById(R.id.add_post_btn);
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        //add a click listener
-        addPostBtn.setOnClickListener(new View.OnClickListener() {
+        if(mAuth.getCurrentUser()!= null) {
 
-            public void onClick(View v){
+            addPostBtn = findViewById(R.id.add_post_btn);
+            firebaseFirestore = FirebaseFirestore.getInstance();
+            mainBottomNav = findViewById(R.id.mainBottomNav);
 
-                Intent newPostIntent = new Intent(MainActivity.this,NewPostActivity.class);
-                startActivity(newPostIntent);
+            homeFragment = new HomeFragment();
+            notificationFragment = new NotificationFragment();
+            accountFragment = new AccountFragment();
 
-            }
-        });
+
+            //add a click listener
+            addPostBtn.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+
+                    Intent newPostIntent = new Intent(MainActivity.this, NewPostActivity.class);
+                    startActivity(newPostIntent);
+
+                }
+            });
+
+            replaceFragment(homeFragment);
+
+            mainBottomNav.setOnNavigationItemSelectedListener(
+                    new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            switch (item.getItemId()) {
+
+                                case R.id.bottom_action_home:
+                                    replaceFragment(homeFragment);
+                                    return true;
+
+                                case R.id.bottom_action_account:
+                                    replaceFragment(accountFragment);
+                                    return true;
+                                case R.id.bottom_action_notif:
+                                    replaceFragment(notificationFragment);
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+
+        }
 
     }
 
@@ -122,4 +164,11 @@ public class MainActivity extends AppCompatActivity {
         sendtologin();
 
     }
+
+    private void  replaceFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container,fragment);
+        fragmentTransaction.commit();
+    }
+
 }
