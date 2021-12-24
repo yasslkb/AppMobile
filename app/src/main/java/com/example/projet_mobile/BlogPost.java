@@ -2,7 +2,7 @@ package com.example.projet_mobile;
 
 import java.util.Date;
 
-public class BlogPost {
+public class BlogPost extends BlogPostId{
     private  String image_url, image_thumb, desc, user_id;
     private  Date timestamp;
 
