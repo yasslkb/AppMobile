@@ -2,7 +2,9 @@ package com.example.projet_mobile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -12,7 +14,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.Toast;
 
 
@@ -136,7 +137,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
-        return true;
+        MenuItem menuItem =menu.findItem(R.id.action_search_btn);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        System.out.println("search view "+searchView);
+        searchView.setQueryHint("search...");
+
+        menuItem.setOnActionExpandListener( new MenuItem.OnActionExpandListener() {
+                                                @Override
+                                                public boolean onMenuItemActionExpand(MenuItem item) {
+                                                    return true;
+                                                }
+
+                                                @Override
+                                                public boolean onMenuItemActionCollapse(MenuItem item) {
+                                                    homeFragment.loadPost();
+
+                                                    return true;
+                                                }
+                                            });
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+              if (!query.isEmpty()){
+                    homeFragment.loadPost(query);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
 
 
     }
@@ -170,5 +207,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_container,fragment);
         fragmentTransaction.commit();
     }
+
+
 
 }

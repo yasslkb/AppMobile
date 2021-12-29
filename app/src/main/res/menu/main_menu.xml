@@ -7,7 +7,8 @@
         android:id="@+id/action_search_btn"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/search"
-        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
         />
     <item
         android:id="@+id/action_setting_btn"
@@ -17,5 +18,8 @@
     <item
         android:id="@+id/action_logout_btn"
         android:title="@string/logout"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="collapseActionView"
+
+        />
+
 </menu>

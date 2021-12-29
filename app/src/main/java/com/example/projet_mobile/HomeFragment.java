@@ -3,7 +3,6 @@ package com.example.projet_mobile;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,18 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -165,4 +166,76 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+    public  void loadPost(String query){
+        System.out.println("hi from loadpost");
+
+        CollectionReference docRef = firebaseFirestore.collection("Posts");
+
+
+        docRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+
+                             blog_list.clear();
+                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                 if(document.get("desc").toString().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT)) ){
+
+                                     BlogPost blogPost = document.toObject(BlogPost.class);
+
+                                     System.out.println(blogPost.getDesc());
+                                     blog_list.add(blogPost);
+                                     blogRecyclerAdapter.notifyDataSetChanged();
+
+                                 }
+
+                             }
+
+
+                        } else {
+
+                        }
+                    }
+                });
+
+    }
+
+    public  void loadPost(){
+        System.out.println("hi from loadpost with out query");
+
+        CollectionReference docRef = firebaseFirestore.collection("Posts");
+
+
+        docRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            System.out.println("before for");
+                            blog_list.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+
+                                    BlogPost blogPost = document.toObject(BlogPost.class);
+
+                                    System.out.println(blogPost.getDesc());
+                                    blog_list.add(blogPost);
+                                    blogRecyclerAdapter.notifyDataSetChanged();
+
+
+
+
+
+                            }
+                        } else {
+
+                        }
+                    }
+                });
+
+    }
+
 }
