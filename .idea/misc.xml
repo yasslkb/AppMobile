@@ -6,14 +6,16 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/baseline_home_20.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/baseline_person_18.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/edit_text_border.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/layout_border.xml" value="0.371875" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.390625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_new_post.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_setup.xml" value="0.25" />
         <entry key="app/src/main/res/layout/blog_list_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/comment_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.34601449275362317" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.34601449275362317" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.34601449275362317" />

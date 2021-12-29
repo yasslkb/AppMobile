@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         maintoolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mAuth =FirebaseAuth.getInstance();
         setSupportActionBar(maintoolbar);
-        getSupportActionBar().setTitle("blog");
+        getSupportActionBar().setTitle("Blog");
 
         if(mAuth.getCurrentUser()!= null) {
 
@@ -70,24 +70,21 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(homeFragment);
 
             mainBottomNav.setOnNavigationItemSelectedListener(
-                    new BottomNavigationView.OnNavigationItemSelectedListener() {
-                        @Override
-                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            switch (item.getItemId()) {
+                    item -> {
+                        switch (item.getItemId()) {
 
-                                case R.id.bottom_action_home:
-                                    replaceFragment(homeFragment);
-                                    return true;
+                            case R.id.bottom_action_home:
+                                replaceFragment(homeFragment);
+                                return true;
 
-                                case R.id.bottom_action_account:
-                                    replaceFragment(accountFragment);
-                                    return true;
-                                case R.id.bottom_action_notif:
-                                    replaceFragment(notificationFragment);
-                                    return true;
-                                default:
-                                    return false;
-                            }
+                            case R.id.bottom_action_account:
+                                replaceFragment(accountFragment);
+                                return true;
+                            case R.id.bottom_action_notif:
+                                replaceFragment(notificationFragment);
+                                return true;
+                            default:
+                                return false;
                         }
                     });
 
@@ -174,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+
 
 
     }
