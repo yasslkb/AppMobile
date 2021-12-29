@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,6 @@ public class CommentsActivity extends AppCompatActivity {
     private List<Comments> commentsList;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth ;
-
     private String blog_post_id ;
     private String current_user_id ;
 
@@ -62,6 +62,7 @@ public class CommentsActivity extends AppCompatActivity {
         comment_list = findViewById(R.id.comment_list);
 
         commentsList = new ArrayList<>();
+
         commentsRecyclerAdapter = new CommentsRecyclerAdapter(commentsList);
         comment_list.setHasFixedSize(true);
         comment_list.setLayoutManager(new LinearLayoutManager(this));

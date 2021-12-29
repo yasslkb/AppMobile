@@ -15,7 +15,7 @@
         <entry key="app/src/main/res/layout/activity_new_post.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_setup.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/blog_list_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/blog_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/comment_list_item.xml" value="0.9" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.34601449275362317" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.34601449275362317" />

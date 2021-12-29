@@ -7,15 +7,14 @@
         android:id="@+id/action_search_btn"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/search"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/action_setting_btn"
-        android:checkable="false"
         android:title="@string/account_setting"
-        app:showAsAction="collapseActionView" />
+        />
     <item
         android:id="@+id/action_logout_btn"
         android:title="@string/logout"
-        app:showAsAction="collapseActionView" />
+        />
 </menu>
