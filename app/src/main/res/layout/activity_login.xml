@@ -43,6 +43,7 @@
             android:layout_marginBottom="194dp"
             android:includeFontPadding="false"
             android:text="Account Login"
+            android:fontFamily="@font/kg"
             android:textAlignment="center"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/login_email"

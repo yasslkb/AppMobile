@@ -15,7 +15,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:actionMenuTextColor">@color/black</item>
-        <item name="android:itemBackground">@color/overflow_background</item>
+        <item name="android:itemBackground">@color/blue_btn</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

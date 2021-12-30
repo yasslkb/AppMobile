@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable/edit_text_border.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/layout_border.xml" value="0.371875" />
+        <entry key="app/src/main/res/font/trailer.xml" value="0.22552083333333334" />
+        <entry key="app/src/main/res/layout/activity_comments.xml" value="0.15760869565217392" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.390625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_new_post.xml" value="0.34375" />

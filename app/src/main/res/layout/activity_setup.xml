@@ -5,18 +5,19 @@
     android:id="@+id/setuptoolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
+    android:background="@color/white"
     tools:context=".SetupActivity">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
 
         android:id="@+id/setup_image"
-        android:layout_width="104dp"
+        android:layout_width="200dp"
         android:layout_height="107dp"
         android:src="@mipmap/default_image"
         app:layout_constraintBottom_toTopOf="@+id/setup_name"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:src="@mipmap/default_image" />
@@ -25,10 +26,9 @@
         android:id="@+id/setupToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/blue_btn"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/setup_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,9 @@
         android:layout_marginBottom="40dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="username"
+        android:hint="Username"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text_border"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/setup_btn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="168dp"
         android:text="submit"
+        android:backgroundTint="@color/blue_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
