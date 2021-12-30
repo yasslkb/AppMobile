@@ -53,6 +53,9 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String current_user_id;
     private Bitmap compressedImageFile;
+
+
+    //onCreate Methode
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +75,11 @@ public class NewPostActivity extends AppCompatActivity {
         current_user_id = firebaseAuth.getCurrentUser().getUid();
 
 
+        //on click listener pour le button newpostimage pours setter une image pour le post
         newPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //on crop image on fixant  un width min et un height min de 512
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setMinCropResultSize(512,512)
@@ -84,23 +89,29 @@ public class NewPostActivity extends AppCompatActivity {
         });
 
 
+        //click listener pour le button d'ajout d'un post
         newPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //la description du post
                 String desc = newPostDesc.getText().toString();
 
+                //tester si la description est non vide  et l'image du post et non null
                 if (!TextUtils.isEmpty(desc) && postImageUri != null) {
 
-
+                    //un nom de l'image aleatoire pour le stocker sur firebase.
                     String randomeName = UUID.randomUUID().toString();
+                    //obtien un reference du document sur firebase pour l'utiliser apres pour le stockage sur firebase.
                     StorageReference filePath = storageReference.child("post_images").child(randomeName + ".jpg");
 
+                    //stocker le post sur firebase.
                     filePath.putFile(postImageUri)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                                     File newImageFile = new File(postImageUri.getPath());
+                                    // compresser l'image pour stocker un thumbnail de la meme image sur firebase , et l'utiliser au lieu de l'image originale.
                                     try{
                                         compressedImageFile = new Compressor(NewPostActivity.this)
                                                 .setMaxHeight(100)
@@ -114,12 +125,15 @@ public class NewPostActivity extends AppCompatActivity {
                                     compressedImageFile.compress(Bitmap.CompressFormat.JPEG,100,baos);
                                     byte[] thumbData = baos.toByteArray();
 
+                                    //une upload task est lance ici.
                                     UploadTask uploadTask =storageReference.child("post_images/thumbs").child(randomeName + ".jpg").putBytes(thumbData);
                                     uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()  {
 
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
 
                                             final Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+
+                                            //le stockage sur firebase on sittons tous les champs d'un post
                                             firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                 @Override
                                                 public void onSuccess(Uri uri) {
@@ -180,6 +194,9 @@ public class NewPostActivity extends AppCompatActivity {
 
     }
 
+
+
+    //on lance l'activity de croper l'image et on obtien le resultat.
     @Override
     protected void onActivityResult(int requestCode , int resultCode , Intent data){
         super.onActivityResult(requestCode , resultCode, data);

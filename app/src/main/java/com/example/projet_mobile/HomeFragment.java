@@ -82,12 +82,15 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
+    //la creation du view du home fragment ici.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        // la liste des blogs retenue de la base de donne stocker ici.
         blog_list = new ArrayList<>();
         blog_list_view=view.findViewById(R.id.blog_list_view);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -97,6 +100,7 @@ public class HomeFragment extends Fragment {
 
         if(firebaseAuth.getCurrentUser() != null){
             blog_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
                 @Override
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
@@ -105,7 +109,7 @@ public class HomeFragment extends Fragment {
                     if(reachedBottom){
                         String desc = lastVisible.getString("desc");
 
-                        Toast.makeText(container.getContext(), "Reached : "+desc, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(container.getContext(), "you are at  : "+desc, Toast.LENGTH_SHORT).show();
 
                         loadMorePost();
                     }
@@ -116,6 +120,8 @@ public class HomeFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+
+        //query  les 3 posts premier  de la base de donne pour un affichage premier.
         Query  firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
         firstQuery.addSnapshotListener((value, error) -> {
             if(isFirstPageLoad){
@@ -147,6 +153,11 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+
+
+
+    //query plus de posts on cas de demande (lorsque le scroll continue.)
     public void loadMorePost(){
         Query  nextQuery = firebaseFirestore.collection("Posts")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -167,6 +178,8 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+    //methode utiliser pour la recherche d'un post de la base de donne on specifiant un mot de la description.
     public  void loadPost(String query){
         System.out.println("hi from loadpost");
 
@@ -203,6 +216,8 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+    // query tous les posts de la base de donne.
     public  void loadPost(){
         System.out.println("hi from loadpost with out query");
 

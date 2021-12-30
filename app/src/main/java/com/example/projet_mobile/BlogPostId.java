@@ -4,6 +4,8 @@ import com.google.firebase.firestore.Exclude;
 
 import io.reactivex.annotations.NonNull;
 
+
+
 public class BlogPostId {
 
     @Exclude

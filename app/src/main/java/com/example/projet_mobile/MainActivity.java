@@ -131,9 +131,13 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+
+    //le main menu .
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        //retrieve l'item du search du menu.
         MenuItem menuItem =menu.findItem(R.id.action_search_btn);
         SearchView searchView = (SearchView) menuItem.getActionView();
         System.out.println("search view "+searchView);
@@ -155,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            //la methode appeler pour faire le search quand un text est submitter.
             @Override
             public boolean onQueryTextSubmit(String query) {
               if (!query.isEmpty()){
@@ -162,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
 
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -200,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    // le changement des fragment effecuer ici.
     private void  replaceFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_container,fragment);

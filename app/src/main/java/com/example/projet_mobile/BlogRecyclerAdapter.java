@@ -32,6 +32,9 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
+
+//il contient des methode pour faire l'adaptation entre donnes et les vues.
 public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapter.ViewHolder> {
 
     public  List<BlogPost> blog_list;
@@ -58,6 +61,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
     }
 
+    //bind de data a le vue.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -148,11 +152,15 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
     }
 
+
+    //le nombre de post.
     @Override
     public int getItemCount() {
         return blog_list.size();
     }
 
+
+    //class view holder.
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private  View mView;
@@ -175,6 +183,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         }
 
+
+        //setter la description du post dans le Textview de la description
         public  void setDescText(String descText){
 
                 descView = mView.findViewById(R.id.blog_desc);
@@ -182,6 +192,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         }
 
+        //setter l'image du post dans le ImageView
         public void setBlogImage(String downloadUri,String thumbUrl){
 
             blogImageView = mView.findViewById(R.id.blog_image);
@@ -195,11 +206,13 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         }
 
+        //setter le temps du post
         public void setTime(String date){
                 blogDate = mView.findViewById(R.id.blog_date);
                 blogDate.setText(date);
         }
 
+        //setter les donne de l'utilisateur sur le view,.
         public void setUserData(String name , String image){
             blogUserImage = mView.findViewById(R.id.blog_user_image);
             blogUserName = mView.findViewById(R.id.blog_user_name);
@@ -209,6 +222,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             placeholderOption.placeholder(R.mipmap.default_image);
             Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(image).into(blogUserImage);
         }
+        //updater le nombre de like d'un post.
         public void updateLikesCount(int count){
             blogLikeCount = mView.findViewById(R.id.blog_like_count);
             blogLikeCount.setText(count+" Likes ");
